@@ -1,0 +1,69 @@
+<app-header></app-header>
+<div class="card border-primary mb-3" style="background-color: #196844;" *ngIf="usuarioActual.rol === 'Admin'">
+    <div class="card-body text-primary">
+        <h5 class="card-title" style="color: white;">Programas </h5>
+        <form (ngSubmit)="create()" class="center">
+            <div class="form-group row center">
+                <label for="nombre" class="col-form-label col-sm-2" style="color: white;">Codigo</label>
+                <div class="col-sm-6 my-2">
+                    <input type="text" class="form-control nuevo" *ngIf="!programaEditar" [(ngModel)]="programa.codigo" name="codigo" required="true">
+                    <input type="text" class="form-control" *ngIf="programaEditar" [(ngModel)]="programaEditar.codigo" name="codigo" required="true">
+                </div>
+            </div>
+            <div class="form-group row center">
+                <label for="nombre" class="col-form-label col-sm-2" style="color: white;">Nombre</label>
+                <div class="col-sm-6 my-2">
+                    <input type="text" class="form-control nuevo" *ngIf="!programaEditar" [(ngModel)]="programa.nombre" name="nombre" required="true">
+                    <input type="text" class="form-control" *ngIf="programaEditar" [(ngModel)]="programaEditar.nombre" name="nombre" required="true">
+                </div>
+            </div>
+            <div class="form-group row center">
+                <label for="tipo" class="col-form-label col-sm-2" style="color: white;">Tipo</label>
+                <div class="col-sm-6 my-2">
+                    <select name="tipo" class="form-select nuevo" *ngIf="!programaEditar" [(ngModel)]="programa.tipo">
+                        <option [value]="0">seleccione</option>
+                        <option [value]="item" *ngFor="let item of tipos">{{item}}</option>
+                    </select>
+                    <select name="tipo" class="form-select" *ngIf="programaEditar" [(ngModel)]="programaEditar.tipo">
+                        <option [value]="0">seleccione</option>
+                      <option [value]="item" *ngFor="let item of tipos">{{item}}</option>
+                  </select>
+                </div>
+            </div>
+            <div class="form-group row center">
+                <div class="col-sm-12 center my-2">
+                    <button class="btn btn-primary " *ngIf="!programaEditar" name="button">Guardar</button>
+                    <button class="btn btn-primary " *ngIf="programaEditar" name="button">Actualizar</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="card border-primary mb-3" style="background-color: #196844;">
+        <div class="card-body text-primary">
+            <h5 class="card-title" style="color: white;">Programas</h5>
+
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th style="color: white;">Codigo</th>
+                        <th style="color: white;">Nombre</th>
+                        <th style="color: white;">Tipo</th>
+                        <th style="color: white;">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of programas">
+                        <td style="color: white;">{{ item.codigo }} </td>
+                        <td style="color: white;">{{ item.nombre }} </td>
+                        <td style="color: white;">{{ item.tipo }}</td>
+                        <td>
+                            <button type="button" name="edit" (click)='edit(item)' class="btn btn-primary btn-sm " title="editar"><span class="bi bi-pencil">Editar</span></button>
+                            <button type="button" name="delete" (click)='delete(item)' class="btn btn-danger btn-sm" title="borrar"><span class="bi bi-trash">Borrar</span></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <button *ngIf="usuarioActual.rol === 'Admin'" (click)="exportTable()" [disabled]="!programas.length > 0" class="btn btn-secondary">Descargar Reporte</button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,103 @@
+<app-header></app-header>
+<div class="card border-primary mb-3" style="background-color: #196844;"  *ngIf="usuarioActual.rol === 'Admin'">
+    <div class="card-body text-primary">
+        <h5 class="card-title" style="color: white;">Matriculas </h5>
+        <form (ngSubmit)="create()" class="center">
+
+            <div class="form-group row center">
+                <label for="usuario" style="color: white;" class="col-form-label col-sm-2">Usuario</label>
+                <div class="col-sm-6 my-2">
+                    <select [(ngModel)]="selectUser" [disabled]="false" (change)="selectUsuario($event)" name="usuario" class="form-select nuevo" *ngIf="!matriculaEditar">
+                        
+                        <option [ngValue]="item" *ngFor="let item of usuarios">{{item.nombre}}</option>
+
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group row center">
+                <label for="programa" style="color: white;" class="col-form-label col-sm-2">Programa</label>
+                <div class="col-sm-6 my-2">
+                    <select [(ngModel)]="selectProg" [disabled]="false" (change)="selectPrograma($event)"name="programa" class="form-select nuevo" *ngIf="!matriculaEditar">
+                        
+                        <option [ngValue]="item" *ngFor="let item of programas">{{item.tipo +" - "+ item.nombre}}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group row center">
+                <label for="fechaMatricula" style="color: white;" class="col-form-label col-sm-2">Fecha De Matricula (YYYY-MM-DD)</label>
+                <div class="col-sm-6 my-2">
+                  <input type="text" class="form-control" *ngIf="!matriculaEditar" [(ngModel)]="matricula.fechaMatricula" name="fechaMatricula" required="true">
+                  <input type="text" class="form-control" *ngIf="matriculaEditar" [(ngModel)]="matriculaEditar.fechaMatricula" name="fechaMatricula" required="true">
+                </div>
+              </div>
+
+            <div class="form-group row center">
+                <label for="valor" style="color: white;" class="col-form-label col-sm-2">Valor</label>
+                <div class="col-sm-6 my-2">
+                    <input type="text" class="form-control nuevo" *ngIf="!matriculaEditar" [(ngModel)]="matricula.valor" name="valor" required="true">
+                    <input type="text" class="form-control" *ngIf="matriculaEditar" [(ngModel)]="matriculaEditar.valor" name="valor" required="true">
+                </div>
+            </div>
+
+            <div class="form-group row center">
+                <label for="estado"  style="color: white;"class="col-form-label col-sm-2">Estado</label>
+                <div class="col-sm-6 my-2">
+                    <select name="estado" class="form-select nuevo" *ngIf="!matriculaEditar" [(ngModel)]="matricula.estado">
+                        <option [value]="0">seleccione</option>
+                        <option [value]="item" *ngFor="let item of estados">{{item}}</option>
+                    </select>
+                    <select name="estado" class="form-select" *ngIf="matriculaEditar" [(ngModel)]="matriculaEditar.estado">
+                        <option [value]="0">seleccione</option>
+                      <option [value]="item" *ngFor="let item of estados">{{item}}</option>
+                  </select>
+                </div>
+            </div>
+
+            <div class="form-group row center">
+                <div class="col-sm-12 center my-2">
+                    <button class="btn btn-primary " *ngIf="!matriculaEditar" name="button">Guardar</button>                    
+                    <button class="btn btn-primary " *ngIf="matriculaEditar" name="button">Actualizar</button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+
+    <div class="card border-primary mb-3" style="background-color: #196844;">
+        <div class="card-body text-primary">
+            <h5 class="card-title" style="color: white;">Matriculas</h5>
+
+            <table class="table table-bordered table-striped" >
+                <thead>
+                    <tr>
+                        <th style="color: white;">Id</th>
+                        <th style="color: white;">Usuario</th>
+                        <th style="color: white;">Programa</th>
+                        <th style="color: white;">Fecha De Matricula</th>
+                        <th style="color: white;">Valor</th>
+                        <th style="color: white;">Estado</th>
+
+                        <th style="color: white;">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of matriculas" id="tabla-matricula">
+                        <td style="color: white;">{{ item.id }} </td>
+                        <td style="color: white;">{{ item.usuario.nombre}} </td>
+                        <td style="color: white;">{{ item.programa.tipo + " - " + item.programa.nombre}}</td>
+                        <td style="color: white;">{{ item.fechaMatricula }}</td>
+                        <td style="color: white;">{{ item.valor }}</td>
+                        <td style="color: white;">{{ item.estado }}</td>
+
+                        <td>
+                            <button type="button" name="edit" (click)='edit(item)' class="btn btn-primary btn-sm " title="editar"><span class="bi bi-pencil">Editar</span></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <button (click)="exportTable()" class="btn btn-secondary" name="button">Descargar Reporte</button>
+        </div>
+    </div>
+</div>

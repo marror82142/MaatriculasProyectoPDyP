@@ -1,0 +1,53 @@
+<div class="card border-primary mb-3" style="background-color: #196844;">
+    <div class="card-body text-primary">
+        <h5 class="card-title" style="color: white;">Programas </h5>
+        <form (ngSubmit)="getProgramas()" class="center">
+            <div class="form-group row center">
+                <label for="nombre" class="col-form-label col-sm-2" style="color: white;">Codigo</label>
+                <div class="col-sm-6 my-2">
+                    <input type="text" class="form-control" [(ngModel)]="programas.codigo" name="codigo" required="true">
+                </div>
+            </div>
+            <div class="form-group row center">
+                <label for="nombre" class="col-form-label col-sm-2" style="color: white;">Nombre</label>
+                <div class="col-sm-6 my-2">
+                    <input type="text" class="form-control" [(ngModel)]="programas.nombre" name="nombre" required="true">
+                </div>
+            </div>
+            <div class="form-group row center">
+                <label for="tipo" class="col-form-label col-sm-2" style="color: white;">Tipo</label>
+                <div class="col-sm-6 my-2">
+                    <select name="tipo" [(ngModel)]="programas.tipo">
+                        <option [value]="item" *ngFor="let item of tipos">{{item}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row center">
+                <div class="col-sm-12 center my-2">
+                    <button class="btn btn-primary " name="button">Guardar</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="card mb-3" style="background-color: #196844;">
+        <div class="card-body text-primary">
+          <h5 class="card-title" style="color: white">Programas</h5>      
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th style="color: white;">Codigo</th>
+                <th style="color: white;">Nombre</th>
+                <th style="color: white;">Tipo</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let programa of listaProgramas">
+                <td style="color: white;">{{ programa.codigo }} </td>
+                <td style="color: white;">{{ programa.nombre }} </td>
+                <td style="color: white;">{{ programa.tipo }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+</div>
